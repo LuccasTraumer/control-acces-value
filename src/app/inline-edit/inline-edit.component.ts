@@ -1,9 +1,11 @@
-import {ChangeDetectionStrategy, Component, forwardRef} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {ChangeDetectionStrategy, Component, forwardRef, inject} from '@angular/core';
+import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
 @Component({
   selector: 'app-inline-edit',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   templateUrl: './inline-edit.component.html',
   styleUrl: './inline-edit.component.scss',
   providers: [
@@ -19,20 +21,23 @@ export class InlineEditComponent implements ControlValueAccessor {
   protected value!: string;
   protected disabled!: boolean;
 
+  private ngControl = inject(NgControl);
+
+  constructor() {
+    if (this.ngControl) this.ngControl.valueAccessor = this;
+  }
+
   // @ts-ignore
-  onChanged: (value: any) => console.log;
+  onChange?: (value: any) => {};
   // @ts-ignore
-  onTouched: () => void;
+  onTouched?: () => void;
 
   writeValue(value: string): void {
-    console.log('Write Value');
     this.value = value;
-    // this.onChanged(value);
   }
 
   registerOnChange(fn: any): void {
-    console.log('Register On Change');
-    this.onChanged = fn;
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
@@ -41,11 +46,5 @@ export class InlineEditComponent implements ControlValueAccessor {
 
   setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
-  }
-
-  public onInputChanged(value: string): void {
-    console.log('Input Changed', value);
-    this.value = value.replace(/[^A-Z0-9]+/ig, "_");
-    this.onChanged(value);
   }
 }

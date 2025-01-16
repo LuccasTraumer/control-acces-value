@@ -1,4 +1,7 @@
 <input
-  [value]="value"
-  (input)="onInputChanged($any($event.target)?.value)"
+  [(ngModel)]="value"
+  (input)="onChange && onChange(value)"
+  (focus)="onTouched && onTouched()"
+  [disabled]="disabled"
 >
+{{ value }}
