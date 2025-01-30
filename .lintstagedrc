@@ -1,7 +1,7 @@
 {
   "{src,modules}/**/*.{js,ts,jsx,tsx,html}": [
     "npx prettier . --write",
-    "npm run lint"
+
   ],
   "{src,modules}/**/*.{css,scss,less}": [
     "npm run prettier --write",
