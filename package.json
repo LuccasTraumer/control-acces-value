@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "prepare": "husky install",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -24,15 +26,81 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.7",
+    "@angular-eslint/builder": "19.0.2",
+    "@angular-eslint/eslint-plugin": "19.0.2",
+    "@angular-eslint/eslint-plugin-template": "19.0.2",
+    "@angular-eslint/schematics": "19.0.2",
+    "@angular-eslint/template-parser": "19.0.2",
     "@angular/cli": "^17.0.7",
     "@angular/compiler-cli": "^17.0.0",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/types": "^19.0.3",
+    "@gitmoji/parser-opts": "^1.4.0",
     "@types/jasmine": "~5.1.0",
+    "@typescript-eslint/eslint-plugin": "7.11.0",
+    "@typescript-eslint/parser": "7.11.0",
+    "commitizen": "^4.3.0",
+    "commitlint": "^19.4.1",
+    "commitlint-config-gitmoji": "^2.3.1",
+    "cz-gitmoji-adapter": "^2.0.0",
+    "eslint": "8.57.0",
+    "husky": "^8.0.3",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "lint-staged": "^15.4.3",
     "typescript": "~5.2.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-gitmoji-adapter",
+      "useEmoji": true
+    },
+    "cz-gitmoji-adapter": {
+      "scopes": [
+        "accessibility",
+        "authentication",
+        "authorization",
+        "ui/ux",
+        "api-integration",
+        "docs",
+        "changelog",
+        "guides",
+        "config",
+        "environment",
+        "deployment",
+        "styles",
+        "testing",
+        "proxy",
+        "perf",
+        "model",
+        "seo",
+        "routing",
+        "assets"
+      ],
+      "questions": {
+        "scope": "Especifique um escopo: "
+      }
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.scss": [
+      "stylelint --fix",
+      "git add"
+    ]
   }
 }

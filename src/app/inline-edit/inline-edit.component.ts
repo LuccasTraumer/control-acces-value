@@ -1,11 +1,19 @@
-import {ChangeDetectionStrategy, Component, forwardRef, inject} from '@angular/core';
-import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  inject,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+} from '@angular/forms';
 @Component({
   selector: 'app-inline-edit',
   standalone: true,
-  imports: [
-    FormsModule
-  ],
+  imports: [FormsModule],
   templateUrl: './inline-edit.component.html',
   styleUrl: './inline-edit.component.scss',
   providers: [
@@ -15,7 +23,7 @@ import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl} from "@
       multi: true,
     },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InlineEditComponent implements ControlValueAccessor {
   protected value!: string;
